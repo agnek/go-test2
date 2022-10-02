@@ -1,8 +1,8 @@
-package cmd
+package app
 
 import "github.com/spf13/pflag"
 
-var cfg Config
+var Cfg Config
 
 type Config struct {
 	ApiToken string

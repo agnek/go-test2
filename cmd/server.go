@@ -3,6 +3,7 @@ package cmd
 import (
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
+	"go-test2/internal/app"
 	"os"
 )
 
@@ -10,9 +11,10 @@ var Cmd = &cobra.Command{
 	Use:          "server",
 	SilenceUsage: true,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		log.Info().Interface("config", cfg).Msg("starting server")
+		log.Info().Interface("config", app.Cfg).Msg("starting server")
 
-		return nil
+		b := app.NewBank()
+		return app.StartServer(b, app.Cfg)
 	},
 }
 
@@ -26,5 +28,5 @@ func Execute() {
 }
 
 func init() {
-	Cmd.Flags().AddFlagSet(cfg.Flags())
+	Cmd.Flags().AddFlagSet(app.Cfg.Flags())
 }
